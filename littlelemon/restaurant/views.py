@@ -7,13 +7,26 @@ from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
 # Create your views here.
+
+def home(request):
+  return render(request, 'index.html', {})
 class MenuItemsView(generics.ListCreateAPIView):
   queryset = MenuItem.objects.all()
   serializer_class = MenuItemSerializer
 
+  def get_permissions(self):
+    if(self.request.method!='GET'):
+        return [IsAuthenticated(), IsAdminUser()]
+    return [IsAuthenticated()]
+
 class SingleMenuItemView(generics.RetrieveUpdateDestroyAPIView):
   queryset = MenuItem.objects.all()
   serializer_class = MenuItemSerializer
+
+  def get_permissions(self):
+    if(self.request.method!='GET'):
+        return [IsAuthenticated(), IsAdminUser()]
+    return [IsAuthenticated()]
 
 class BookingsView(generics.ListCreateAPIView):
   queryset = Booking.objects.all()
