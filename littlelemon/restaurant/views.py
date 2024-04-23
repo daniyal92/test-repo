@@ -17,7 +17,7 @@ class MenuItemsView(generics.ListCreateAPIView):
   def get_permissions(self):
     if(self.request.method!='GET'):
         return [IsAuthenticated(), IsAdminUser()]
-    return [IsAuthenticated()]
+    return []
 
 class SingleMenuItemView(generics.RetrieveUpdateDestroyAPIView):
   queryset = MenuItem.objects.all()
@@ -26,7 +26,7 @@ class SingleMenuItemView(generics.RetrieveUpdateDestroyAPIView):
   def get_permissions(self):
     if(self.request.method!='GET'):
         return [IsAuthenticated(), IsAdminUser()]
-    return [IsAuthenticated()]
+    return []
 
 class BookingsView(generics.ListCreateAPIView):
   queryset = Booking.objects.all()
